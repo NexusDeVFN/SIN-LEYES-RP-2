@@ -1,7 +1,7 @@
 $engine: 3
 $onesync: 'on'
 name: SIN LEYES RP 2.0 - NX-Core
-version: 0.2.0
+version: 0.2.1
 author: NX Development
 description: Framework propio NX-Core, base SQL y recursos FiveM mediante txAdmin.
 tasks:
@@ -13,12 +13,16 @@ tasks:
   ref: master
   subpath: resources
   dest: ./resources
+- action: ensure_dir
+  path: ./tmp
+- action: download_file
+  url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+  path: ./tmp/oxmysql.zip
+- action: unzip
+  src: ./tmp/oxmysql.zip
+  dest: ./resources
 - action: remove_path
-  path: ./resources/[gameplay]/chat
-- action: download_github
-  src: overextended/oxmysql
-  ref: main
-  dest: ./resources/oxmysql
+  path: ./tmp/oxmysql.zip
 - action: write_file
   file: ./resources/nx-core/client/main.lua
   data: |
